@@ -1,5 +1,6 @@
 package net.apexclient.ui.elements.impl;
 
+import com.google.gson.JsonObject;
 import imgui.ImGui;
 import net.apexclient.imgui.ImGuiImpl;
 import net.apexclient.ui.elements.BoolPredicate;
@@ -27,5 +28,17 @@ public class ButtonElement extends Element
         {
             runnable.run();
         }
+    }
+
+    @Override
+    public void read(JsonObject object)
+    {
+
+    }
+
+    @Override
+    public void write(JsonObject object)
+    {
+
     }
 }

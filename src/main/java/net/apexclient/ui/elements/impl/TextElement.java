@@ -1,5 +1,6 @@
 package net.apexclient.ui.elements.impl;
 
+import com.google.gson.JsonObject;
 import imgui.ImGui;
 import net.apexclient.ui.elements.BoolPredicate;
 import net.apexclient.ui.elements.Element;
@@ -23,5 +24,17 @@ public class TextElement extends Element
     public void render()
     {
         ImGui.text(text);
+    }
+
+    @Override
+    public void read(JsonObject object)
+    {
+
+    }
+
+    @Override
+    public void write(JsonObject object)
+    {
+
     }
 }

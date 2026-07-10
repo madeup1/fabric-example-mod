@@ -1,5 +1,6 @@
 package net.apexclient.ui.elements.impl;
 
+import com.google.gson.JsonObject;
 import imgui.ImGui;
 import imgui.type.ImBoolean;
 import net.apexclient.ui.elements.BoolPredicate;
@@ -35,5 +36,17 @@ public class BooleanElement extends Element
     public void setEnabled(boolean value)
     {
         this.value.set(value);
+    }
+
+    @Override
+    public void read(JsonObject object)
+    {
+        this.value.set(object.get("value").getAsBoolean());
+    }
+
+    @Override
+    public void write(JsonObject object)
+    {
+        object.addProperty("value", this.value.get());
     }
 }

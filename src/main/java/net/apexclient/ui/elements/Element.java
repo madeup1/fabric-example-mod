@@ -1,6 +1,8 @@
 package net.apexclient.ui.elements;
 
-public abstract class Element
+import net.apexclient.utils.serial.Storable;
+
+public abstract class Element implements Storable
 {
     private final String name;
     private final BoolPredicate predicate;

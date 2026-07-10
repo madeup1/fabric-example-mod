@@ -1,5 +1,6 @@
 package net.apexclient.ui.elements.impl;
 
+import com.google.gson.JsonObject;
 import imgui.ImGui;
 import imgui.type.ImInt;
 import net.apexclient.ui.elements.BoolPredicate;
@@ -34,5 +35,17 @@ public class IntElement extends Element
     public void setValue(int value)
     {
         this.value.set(value);
+    }
+
+    @Override
+    public void read(JsonObject object)
+    {
+        value.set(object.get("value").getAsInt());
+    }
+
+    @Override
+    public void write(JsonObject object)
+    {
+        object.addProperty("value", value.get());
     }
 }

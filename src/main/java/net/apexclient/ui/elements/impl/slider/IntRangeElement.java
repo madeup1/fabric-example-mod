@@ -1,5 +1,6 @@
 package net.apexclient.ui.elements.impl.slider;
 
+import com.google.gson.JsonObject;
 import imgui.ImGui;
 import imgui.flag.ImGuiSliderFlags;
 import net.apexclient.ui.elements.BoolPredicate;
@@ -60,5 +61,19 @@ public class IntRangeElement extends Element
     public void setCurrentMaximum(int value)
     {
         max[0] = value;
+    }
+
+    @Override
+    public void read(JsonObject object)
+    {
+        min[0] = object.get("min").getAsInt();
+        max[0] = object.get("max").getAsInt();
+    }
+
+    @Override
+    public void write(JsonObject object)
+    {
+        object.addProperty("min", min[0]);
+        object.addProperty("max", max[0]);
     }
 }

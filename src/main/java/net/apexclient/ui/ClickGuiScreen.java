@@ -19,6 +19,7 @@ import net.apexclient.ui.images.ImImage;
 import net.apexclient.ui.window.Window;
 import net.apexclient.ui.window.impl.HomeWindow;
 import net.apexclient.ui.window.impl.ModuleWindow;
+import net.apexclient.ui.window.impl.TestWindow;
 import net.apexclient.utils.FontUtils;
 import net.apexclient.utils.ImUtils;
 import net.minecraft.client.gui.screens.Screen;
@@ -59,7 +60,7 @@ public final class ClickGuiScreen extends Screen implements RenderInterface
             new SidebarButton("QOL", () -> {}),
             new SidebarButton("Misc", () -> {}),
             new SidebarButton("Config", () -> {}),
-            new SidebarButton("Settings", () -> {})
+            new SidebarButton("Settings", () -> {setWindow(new TestWindow());})
     );
 
     private static final ImVec4 PRIMARY_COLOR = new ImVec4(1f, 0.07f, 0.09f, 1f);

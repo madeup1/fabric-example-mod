@@ -1,5 +1,6 @@
 package net.apexclient.ui.elements.impl.slider;
 
+import com.google.gson.JsonObject;
 import imgui.ImGui;
 import net.apexclient.ui.elements.BoolPredicate;
 import net.apexclient.ui.elements.Element;
@@ -37,5 +38,17 @@ public class IntSliderElement extends Element
     public void setValue(int value)
     {
         mutable[0] = value;
+    }
+
+    @Override
+    public void read(JsonObject object)
+    {
+        mutable[0] = object.get("value").getAsInt();
+    }
+
+    @Override
+    public void write(JsonObject object)
+    {
+        object.addProperty("value", mutable[0]);
     }
 }

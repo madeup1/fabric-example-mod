@@ -1,6 +1,11 @@
 package net.apexclient.modules;
 
 import imgui.type.ImBoolean;
+import net.apexclient.ui.elements.Element;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Module
 {
@@ -8,6 +13,7 @@ public abstract class Module
     private final ImBoolean toggle;
     private final Category category;
     private final String description;
+    private final List<Element> elements = new ArrayList<>();
 
     public Module(String name, Category category, String description, boolean defaultEnabled)
     {
@@ -24,6 +30,11 @@ public abstract class Module
 
     public abstract void onEnable();
     public abstract void onDisable();
+
+    public void addElements(Element... elements)
+    {
+        this.elements.addAll(Arrays.asList(elements));
+    }
 
     public boolean isEnabled()
     {

@@ -1,5 +1,6 @@
 package net.apexclient.ui.elements.impl;
 
+import com.google.gson.JsonObject;
 import imgui.ImGui;
 import imgui.type.ImDouble;
 import net.apexclient.ui.elements.BoolPredicate;
@@ -35,5 +36,17 @@ public class DoubleElement extends Element
     public void setValue(double value)
     {
         this.value.set(value);
+    }
+
+    @Override
+    public void read(JsonObject object)
+    {
+        this.value.set(object.get("value").getAsDouble());
+    }
+
+    @Override
+    public void write(JsonObject object)
+    {
+        object.addProperty("value", value.get());
     }
 }
