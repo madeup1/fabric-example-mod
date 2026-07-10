@@ -6,6 +6,10 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+base {
+	archivesName = project.archives_base_name
+}
+
 repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
@@ -15,34 +19,37 @@ repositories {
 }
 
 loom {
-	splitEnvironmentSourceSets()
-
-	mods {
-		"modid" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-
+	accessWidenerPath.set(file("src/main/resources/apexclient.accesswidener"))
 }
 
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-	
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	include implementation("io.github.spair:imgui-java-binding:${project.imgui_version}")
+	include implementation("io.github.spair:imgui-java-lwjgl3:${project.imgui_version}") {
+		exclude group: "org.lwjgl"
+		exclude group: "org.lwjgl.lwjgl"
+	}
+
+	include implementation("io.github.spair:imgui-java-natives-windows:${project.imgui_version}")
+	include implementation("io.github.spair:imgui-java-natives-linux:${project.imgui_version}")
+	include implementation("io.github.spair:imgui-java-natives-macos:${project.imgui_version}")
+}
+
+base {
+	archivesName = project.archives_base_name
 }
 
 processResources {
-	def version = project.version
-	inputs.property "version", version
+	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": version
+		expand "version": inputs.properties.version
 	}
 }
 
@@ -61,11 +68,10 @@ java {
 }
 
 jar {
-	def projectName = project.name
-	inputs.property "projectName", projectName
+	inputs.property "archivesName", project.base.archivesName
 
 	from("LICENSE") {
-		rename { "${it}_$projectName"}
+		rename { "${it}_${inputs.properties.archivesName}"}
 	}
 }
 
@@ -73,6 +79,7 @@ jar {
 publishing {
 	publications {
 		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
 			from components.java
 		}
 	}
